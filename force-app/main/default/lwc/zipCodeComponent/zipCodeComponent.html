@@ -1,0 +1,33 @@
+<template>
+    <lightning-card title="Zip Code Lookup">
+        <lightning-combobox 
+            name="countryPicklistField"
+            label="Select Country"
+            value={selectedValue}
+            options={picklistOptions}
+            onchange={handleCountryChange}>
+        </lightning-combobox>
+        <lightning-input label="Enter Zip Code" value={zipCode} onchange={handleInputChange}></lightning-input>
+        <lightning-button label="Get Place Details" value="Get Place Details" onclick={callAPI}></lightning-button>
+        <template if:true={showResponse}>
+            <div class="slds-m-top_medium">
+                <p>Country: {responseCountry}</p>
+                <p>Country Abbreviation: {countryAbbreviation}</p>
+                <p>Place Name : {placeName}</p>
+                <p>Longitude: {longitude}</p>
+                <p>Latitude: {latitude}</p>
+                <p>State: {state}</p>
+            </div>
+        </template>
+    </lightning-card> 
+    <template if:true={showModal}>
+        <c-modal-component 
+        place-name={selectedPlace.placeName}
+        country={selectedPlace.country}
+        longitude={selectedPlace.longitude}
+        state={selectedPlace.state}
+        latitude={selectedPlace.latitude}
+        state-abbreviation={selectedPlace.stateAbbreviation}
+        onclosemodal={handleModalClose}></c-modal-component>
+    </template>  
+</template>
